@@ -1,0 +1,9 @@
+Usage: ./certgen.sh [options]
+
+Options:
+    -h, --help      Show this help message and exit
+
+This script generates a root CA, private keys, certificates, and Diffie-Hellman parameters
+for nginx, redis, rabbitmq, and postgres.
+All files are created inside the 'certs' directory.
+The Nginx certificate and key will be named 'server.crt' and 'server.key'.

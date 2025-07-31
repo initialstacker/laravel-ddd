@@ -1,0 +1,36 @@
+services:
+  # RabbitMQ message broker service
+  rabbitmq:
+    image: rabbitmq:latest
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-rmq_service_1q4z6x}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:-x0v9RBp65AvF1GVu48E0}
+      RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: >
+        -proto_dist inet_tls
+        -ssl_dist_opt server_certfile /certs/rabbitmq.crt
+        -ssl_dist_opt server_keyfile /certs/rabbitmq.key
+        -ssl_dist_opt cacertfile /certs/ca.crt
+        -ssl_dist_opt verify verify_peer
+        -ssl_dist_opt fail_if_no_peer_cert false
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+      - ./docker/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
+      - ./docker/rabbitmq/plugins/enabled_plugins:/etc/rabbitmq/enabled_plugins:ro
+      - ./docker/rabbitmq/plugins:/usr/lib/rabbitmq/plugins:ro
+      - ./certs/rabbitmq.crt:/certs/rabbitmq.crt:ro
+      - ./certs/rabbitmq.key:/certs/rabbitmq.key:ro
+      - ./certs/ca.crt:/certs/ca.crt:ro
+    ports:
+      - "5672:5672"
+      - "5671:5671"
+      - "15672:15672"
+    networks:
+      - app-network
+
+volumes:
+  rabbitmq-data:
+  
+networks:
+  app-network:
+    external: true

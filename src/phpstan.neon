@@ -1,0 +1,18 @@
+parameters:
+  level: 1
+  fileExtensions:
+    - php
+  paths:
+    - app/
+  tmpDir: storage/framework/cache/phpstan
+  reportUnmatchedIgnoredErrors: true
+  treatPhpDocTypesAsCertain: false
+
+  ignoreErrors:
+    - message: '#.*#'
+      paths:
+        - %currentWorkingDirectory%/app/Account/Infrastructure/Auth/Authenticate.php
+    
+includes:
+  - vendor/phpstan/phpstan-strict-rules/rules.neon
+  - phar://phpstan.phar/conf/bleedingEdge.neon

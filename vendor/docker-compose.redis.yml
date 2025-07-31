@@ -1,0 +1,22 @@
+services:
+  # Redis cache service
+  redis:
+    image: redis:latest
+    restart: always
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./certs/redis.crt:/certs/redis.crt:ro
+      - ./certs/redis.key:/certs/redis.key:ro
+      - ./certs/ca.crt:/certs/ca.crt:ro
+      - ./certs/redis.dh:/certs/redis.dh:ro
+      - ./docker/redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+    networks:
+      - app-network
+
+volumes: {}
+
+networks:
+  app-network:
+    external: true

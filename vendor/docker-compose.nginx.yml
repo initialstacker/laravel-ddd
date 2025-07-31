@@ -1,0 +1,21 @@
+services:
+  # Nginx web server service
+  nginx:
+    image: nginx:latest
+    restart: always
+    ports:
+      - "8080:443"
+    volumes:
+      - ./src:/var/www/html/src
+      - ./certs/server.crt:/etc/nginx/ssl/server.crt:ro
+      - ./certs/server.key:/etc/nginx/ssl/server.key:ro
+      - ./certs/ca.crt:/etc/nginx/ssl/ca.crt:ro
+      - ./docker/nginx:/etc/nginx/conf.d
+    networks:
+      - app-network
+
+volumes: {}
+
+networks:
+  app-network:
+    external: true

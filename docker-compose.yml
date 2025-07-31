@@ -1,0 +1,30 @@
+x-environment: &environment
+  env_file:
+    - path: ./src/.env.example
+      required: true
+    - path: ./src/.env
+      required: false
+
+services:
+  # PHP application service
+  app:
+    <<: *environment
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        USER_ID: ${USER_ID:-1000}
+        GROUP_ID: ${GROUP_ID:-1000}
+    volumes:
+      - ./src:/var/www/html/src
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+      - ./certs:/certs:ro
+    working_dir: /var/www/html/src
+    networks:
+      - app-network
+
+volumes: {}
+
+networks:
+  app-network:
+    external: true
