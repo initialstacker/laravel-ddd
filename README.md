@@ -12,7 +12,7 @@ A robust starter kit for Laravel 12 (PHP 8.4) featuring Hexagonal Architecture, 
 - **Doctrine ORM** integrated for powerful object-relational mapping
 - Out-of-the-box **Docker** support (NGINX, PostgreSQL, RabbitMQ, Redis)
 - JWT Auth, Redis cache
-- Includes developer tools: PHP CS Fixer, PHPStan, PHPUnit, and more
+- Includes developer tools: PHP CS Fixer, PHPStan, PEST, and more
 
 ## Quick Start
 
