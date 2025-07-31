@@ -39,12 +39,17 @@ final class RegisterAction extends Action
      * @return MessageResponse
      */
     #[Route(methods: 'POST', uri: '/register')]
-	public function __invoke(RegisterRequest $request): MessageResponse
+	public function __invoke(
+		RegisterRequest $request): MessageResponse
 	{
-		$command = RegisterCommand::fromRequest(request: $request);
+		$command = RegisterCommand::fromRequest(
+			request: $request
+		);
 		
 		return $this->responder->respond(
-			result: (bool) $this->commandBus->send(command: $command)
+			result: (bool) $this->commandBus->send(
+				command: $command
+			)
 		);
 	}
 }
