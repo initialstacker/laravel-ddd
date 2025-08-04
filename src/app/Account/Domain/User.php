@@ -137,14 +137,4 @@ class User extends AggregateRoot
         $this->initializeCreatedAt();
         $this->initializeUpdatedAt();
     }
-
-    /**
-     * Set the user's password object.
-     *
-     * @param Password $password
-     */
-    public function setPassword(Password $password): void
-    {
-        $this->password = $password;
-    }
 }
