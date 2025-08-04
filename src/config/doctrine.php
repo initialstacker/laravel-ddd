@@ -3,7 +3,6 @@
 use App\Shared\Infrastructure\Id\RoleIdType;
 use App\Shared\Infrastructure\Id\PermissionIdType;
 use App\Shared\Infrastructure\Id\UserIdType;
-use App\Shared\Infrastructure\Id\MediaIdType;
 use App\Shared\Infrastructure\Slug\RoleSlugType;
 use App\Shared\Infrastructure\Slug\PermissionSlugType;
 
@@ -42,7 +41,6 @@ return [
         RoleIdType::NAME => RoleIdType::class,
         PermissionIdType::NAME => PermissionIdType::class,
         UserIdType::NAME => UserIdType::class,
-        MediaIdType::NAME => MediaIdType::class,
         RoleSlugType::NAME => RoleSlugType::class,
         PermissionSlugType::NAME => PermissionSlugType::class,
     ],
