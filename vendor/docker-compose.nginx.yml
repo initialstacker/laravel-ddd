@@ -4,7 +4,7 @@ services:
     image: nginx:latest
     restart: always
     ports:
-      - "8080:443"
+      - "8001:443"
     volumes:
       - ./src:/var/www/html/src
       - ./certs/server.crt:/etc/nginx/ssl/server.crt:ro

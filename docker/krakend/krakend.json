@@ -1,0 +1,176 @@
+{
+  "version": 3,
+  "name": "Krakend API Gateway",
+  "port": 8000,
+  "timeout": "5000ms",
+  "debug": true,
+  "debug_endpoint": true,
+  "output_encoding": "json",
+  "tls": {
+    "keys": [
+      {
+        "public_key": "/etc/krakend/krakend.crt",
+        "private_key": "/etc/krakend/krakend.key"
+      }
+    ],
+    "min_version": "TLS12",
+    "max_version": "TLS13"
+  },
+  "client_tls": {
+    "allow_insecure_connections": true,
+    "min_version": "TLS12",
+    "max_version": "TLS13"
+  },
+  "endpoints": [
+    {
+      "endpoint": "/api/v1/login",
+      "method": "POST",
+      "input_headers": ["Accept", "Content-Type"],
+      "backend": [
+        {
+          "host": ["https://nginx:443"],
+          "url_pattern": "/api/v1/login",
+          "encoding": "json",
+          "extra_config": {
+            "backend/http/client": {
+              "client_tls": {
+                "allow_insecure_connections": true,
+                "min_version": "TLS12",
+                "max_version": "TLS13",
+                "ca_certs": ["/etc/krakend/ca.crt"]
+              }
+            },
+            "github_com/devopsfaith/krakend-backend": {
+              "return_error_details": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/register",
+      "method": "POST",
+      "input_headers": ["Accept", "Content-Type"],
+      "backend": [
+        {
+          "host": ["https://nginx:443"],
+          "url_pattern": "/api/v1/register",
+          "encoding": "json",
+          "extra_config": {
+            "backend/http/client": {
+              "client_tls": {
+                "allow_insecure_connections": true,
+                "min_version": "TLS12",
+                "max_version": "TLS13",
+                "ca_certs": ["/etc/krakend/ca.crt"]
+              }
+            },
+            "github_com/devopsfaith/krakend-backend": {
+              "return_error_details": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/logout",
+      "method": "POST",
+      "input_headers": ["Authorization", "Accept", "Content-Type"],
+      "backend": [
+        {
+          "host": ["https://nginx:443"],
+          "url_pattern": "/api/v1/logout",
+          "encoding": "json",
+          "extra_config": {
+            "backend/http/client": {
+              "client_tls": {
+                "allow_insecure_connections": true,
+                "min_version": "TLS12",
+                "max_version": "TLS13",
+                "ca_certs": ["/etc/krakend/ca.crt"]
+              }
+            },
+            "github_com/devopsfaith/krakend-backend": {
+              "return_error_details": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/profile",
+      "method": "GET",
+      "input_headers": ["Authorization", "Accept", "Content-Type"],
+      "backend": [
+        {
+          "host": ["https://nginx:443"],
+          "url_pattern": "/api/v1/profile",
+          "encoding": "json",
+          "extra_config": {
+            "backend/http/client": {
+              "client_tls": {
+                "allow_insecure_connections": true,
+                "min_version": "TLS12",
+                "max_version": "TLS13",
+                "ca_certs": ["/etc/krakend/ca.crt"]
+              }
+            },
+            "github_com/devopsfaith/krakend-backend": {
+              "return_error_details": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/profile",
+      "method": "POST",
+      "input_headers": ["Authorization", "Accept", "Content-Type"],
+      "backend": [
+        {
+          "host": ["https://nginx:443"],
+          "url_pattern": "/api/v1/profile",
+          "encoding": "json",
+          "extra_config": {
+            "backend/http/client": {
+              "client_tls": {
+                "allow_insecure_connections": true,
+                "min_version": "TLS12",
+                "max_version": "TLS13",
+                "ca_certs": ["/etc/krakend/ca.crt"]
+              }
+            },
+            "github_com/devopsfaith/krakend-backend": {
+              "return_error_details": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/profile",
+      "method": "DELETE",
+      "input_headers": ["Authorization", "Accept", "Content-Type"],
+      "backend": [
+        {
+          "host": ["https://nginx:443"],
+          "url_pattern": "/api/v1/profile",
+          "encoding": "json",
+          "extra_config": {
+            "backend/http/client": {
+              "client_tls": {
+                "allow_insecure_connections": true,
+                "min_version": "TLS12",
+                "max_version": "TLS13",
+                "ca_certs": ["/etc/krakend/ca.crt"]
+              }
+            },
+            "github_com/devopsfaith/krakend-backend": {
+              "return_error_details": true
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 # Use official PHP 8.4 FPM image as base
-FROM php:8.4-fpm AS builder
+FROM php:8.4-fpm-bullseye
 
 # Install system dependencies and PHP extensions required for the application
 RUN apt-get update && apt-get install -y --no-install-recommends \

@@ -53,6 +53,9 @@ REDIS_KEY="$TLS_DIR/redis.key"
 REDIS_CERT="$TLS_DIR/redis.crt"
 REDIS_DH="$TLS_DIR/redis.dh"
 
+KRAKEND_KEY="$TLS_DIR/krakend.key"
+KRAKEND_CERT="$TLS_DIR/krakend.crt"
+
 # -----------------------------------------------------------------------------
 # Function: usage
 # Description:
@@ -209,6 +212,10 @@ main() {
     chmod 644 "$REDIS_KEY"
     generate_cert "$REDIS_KEY" "$REDIS_CERT" "redis" "-extfile $OPENSSL_EXT_CONF -extensions server_cert"
     chmod 644 "$REDIS_CERT"
+
+    # Generate Krakend key and cert
+    generate_key "$KRAKEND_KEY"
+    generate_cert "$KRAKEND_KEY" "$KRAKEND_CERT" "krakend" "-extfile $OPENSSL_EXT_CONF -extensions server_cert"
 
     # Generate Diffie-Hellman parameters
     generate_dh_params

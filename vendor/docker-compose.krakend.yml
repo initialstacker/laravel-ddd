@@ -1,0 +1,21 @@
+services:
+  # KrakenD API Gateway service
+  krakend:
+    image: krakend:2.10.2
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./certs/krakend.crt:/etc/krakend/krakend.crt:ro
+      - ./certs/krakend.key:/etc/krakend/krakend.key:ro
+      - ./certs/ca.crt:/etc/krakend/ca.crt:ro
+      - ./docker/krakend:/etc/krakend
+    command: ["run", "-c", "/etc/krakend/krakend.json"]
+    networks:
+      - app-network
+
+volumes: {}
+
+networks:
+  app-network:
+    external: true
