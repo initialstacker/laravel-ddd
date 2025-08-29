@@ -10,6 +10,7 @@ A robust starter kit for Laravel 12 (PHP 8.4) featuring Hexagonal Architecture, 
 - **CQRS** (Command and Query Responsibility Segregation)
 - **Action-Domain-Responder** pattern for clear code responsibility separation
 - **Doctrine ORM** integrated for powerful object-relational mapping
+- **Krakend API Gateway** integration for scalable, high-performance routing
 - Out-of-the-box **Docker** support (NGINX, PostgreSQL, RabbitMQ, Redis)
 - JWT Auth, Redis cache
 - Includes developer tools: PHP CS Fixer, PHPStan, PEST, and more
