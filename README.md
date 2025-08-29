@@ -46,6 +46,7 @@ $ docker compose \
     -f vendor/docker-compose.postgres.yml \
     -f vendor/docker-compose.rabbitmq.yml \
     -f vendor/docker-compose.redis.yml \
+    -f vendor/docker-compose.krakend.yml \
     up --build -d --remove-orphans
 ```
 

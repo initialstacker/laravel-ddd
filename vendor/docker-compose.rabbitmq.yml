@@ -22,9 +22,9 @@ services:
       - ./certs/rabbitmq.key:/certs/rabbitmq.key:ro
       - ./certs/ca.crt:/certs/ca.crt:ro
     ports:
-      - "5672:5672"
-      - "5671:5671"
-      - "15672:15672"
+      - "127.0.0.1:5672:5672"
+      - "127.0.0.1:5671:5671"
+      - "127.0.0.1:15672:15672"
     networks:
       - app-network
 
