@@ -1,0 +1,112 @@
+openapi: 3.0.0
+
+info:
+  title: Laravel API Gateway service
+  version: 1.0.0
+
+servers:
+  - url: https://localhost
+
+paths:
+  /v1/login:
+    post:
+      summary: User authentication and token generation
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+                password:
+                  type: string
+                  format: password
+                  example: strongpassword123
+      responses:
+        '200':
+          description: Successful login, returns access and refresh tokens with metadata
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  data:
+                    type: object
+                    properties:
+                      accessToken:
+                        type: object
+                        properties:
+                          value:
+                            type: string
+                            example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
+                          expiresIn:
+                            type: integer
+                            example: 3600
+                      refreshToken:
+                        type: object
+                        properties:
+                          value:
+                            type: string
+                            example: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...
+                          expiresIn:
+                            type: integer
+                            example: 5184000
+                      tokenType:
+                        type: string
+                        example: bearer
+                  metadata:
+                    type: object
+                    properties:
+                      request_id:
+                        type: string
+                        example: dabd211c-8a87-4f38-b094-0fa857dfae9e
+                      timestamp:
+                        type: string
+                        format: date-time
+                        example: '2025-08-31T20:26:58+00:00'
+        '400':
+          description: Authentication failed, tokens not generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 400
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Failed to generate token.
+                  metadata:
+                    type: object
+                    properties:
+                      request_id:
+                        type: string
+                        example: dabd211c-8a87-4f38-b094-0fa857dfae9e
+                      timestamp:
+                        type: string
+                        format: date-time
+      security: []
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Bearer token authentication

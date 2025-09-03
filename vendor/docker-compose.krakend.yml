@@ -6,10 +6,10 @@ services:
     ports:
       - "127.0.0.1:8000:8000"
     volumes:
-      - ./certs/krakend.crt:/etc/krakend/krakend.crt:ro
-      - ./certs/krakend.key:/etc/krakend/krakend.key:ro
-      - ./certs/ca.crt:/etc/krakend/ca.crt:ro
       - ./docker/krakend:/etc/krakend
+      - ./certs/krakend.crt:/etc/ssl/krakend.crt:ro
+      - ./certs/krakend.key:/etc/ssl/krakend.key:ro
+      - ./certs/ca.crt:/etc/ssl/ca.crt:ro
     command: ["run", "-c", "/etc/krakend/krakend.json"]
     networks:
       - app-network

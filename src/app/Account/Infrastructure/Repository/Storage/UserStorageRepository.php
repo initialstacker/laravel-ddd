@@ -3,11 +3,11 @@
 namespace App\Account\Infrastructure\Repository\Storage;
 
 use App\Account\Domain\User;
-use App\Account\Domain\Email\Email;
+use App\Shared\Domain\Email\Email;
+use App\Shared\Domain\Id\UserId;
 use App\Account\Domain\Repository\UserDecoratorRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
-use App\Shared\Domain\Id\UserId;
 
 final class UserStorageRepository extends UserDecoratorRepository
 {

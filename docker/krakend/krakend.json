@@ -9,8 +9,8 @@
   "tls": {
     "keys": [
       {
-        "public_key": "/etc/krakend/krakend.crt",
-        "private_key": "/etc/krakend/krakend.key"
+        "public_key": "/etc/ssl/krakend.crt",
+        "private_key": "/etc/ssl/krakend.key"
       }
     ],
     "min_version": "TLS12",
@@ -20,6 +20,15 @@
     "allow_insecure_connections": true,
     "min_version": "TLS12",
     "max_version": "TLS13"
+  },
+  "extra_config": {
+    "security/cors": {
+      "allow_origins": [],
+      "allow_credentials": false
+    },
+    "router": {
+      "return_error_msg": true
+    }
   },
   "endpoints": [
     {
@@ -32,16 +41,16 @@
           "url_pattern": "/api/v1/login",
           "encoding": "json",
           "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            },
             "backend/http/client": {
               "client_tls": {
                 "allow_insecure_connections": true,
                 "min_version": "TLS12",
                 "max_version": "TLS13",
-                "ca_certs": ["/etc/krakend/ca.crt"]
+                "ca_certs": ["/etc/ssl/ca.crt"]
               }
-            },
-            "github_com/devopsfaith/krakend-backend": {
-              "return_error_details": true
             }
           }
         }
@@ -57,16 +66,16 @@
           "url_pattern": "/api/v1/register",
           "encoding": "json",
           "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            },
             "backend/http/client": {
               "client_tls": {
                 "allow_insecure_connections": true,
                 "min_version": "TLS12",
                 "max_version": "TLS13",
-                "ca_certs": ["/etc/krakend/ca.crt"]
+                "ca_certs": ["/etc/ssl/ca.crt"]
               }
-            },
-            "github_com/devopsfaith/krakend-backend": {
-              "return_error_details": true
             }
           }
         }
@@ -82,16 +91,16 @@
           "url_pattern": "/api/v1/logout",
           "encoding": "json",
           "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            },
             "backend/http/client": {
               "client_tls": {
                 "allow_insecure_connections": true,
                 "min_version": "TLS12",
                 "max_version": "TLS13",
-                "ca_certs": ["/etc/krakend/ca.crt"]
+                "ca_certs": ["/etc/ssl/ca.crt"]
               }
-            },
-            "github_com/devopsfaith/krakend-backend": {
-              "return_error_details": true
             }
           }
         }
@@ -107,16 +116,16 @@
           "url_pattern": "/api/v1/profile",
           "encoding": "json",
           "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            },
             "backend/http/client": {
               "client_tls": {
                 "allow_insecure_connections": true,
                 "min_version": "TLS12",
                 "max_version": "TLS13",
-                "ca_certs": ["/etc/krakend/ca.crt"]
+                "ca_certs": ["/etc/ssl/ca.crt"]
               }
-            },
-            "github_com/devopsfaith/krakend-backend": {
-              "return_error_details": true
             }
           }
         }
@@ -132,16 +141,16 @@
           "url_pattern": "/api/v1/profile",
           "encoding": "json",
           "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            },
             "backend/http/client": {
               "client_tls": {
                 "allow_insecure_connections": true,
                 "min_version": "TLS12",
                 "max_version": "TLS13",
-                "ca_certs": ["/etc/krakend/ca.crt"]
+                "ca_certs": ["/etc/ssl/ca.crt"]
               }
-            },
-            "github_com/devopsfaith/krakend-backend": {
-              "return_error_details": true
             }
           }
         }
@@ -157,16 +166,16 @@
           "url_pattern": "/api/v1/profile",
           "encoding": "json",
           "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            },
             "backend/http/client": {
               "client_tls": {
                 "allow_insecure_connections": true,
                 "min_version": "TLS12",
                 "max_version": "TLS13",
-                "ca_certs": ["/etc/krakend/ca.crt"]
+                "ca_certs": ["/etc/ssl/ca.crt"]
               }
-            },
-            "github_com/devopsfaith/krakend-backend": {
-              "return_error_details": true
             }
           }
         }

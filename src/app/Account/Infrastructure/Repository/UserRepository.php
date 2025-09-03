@@ -3,9 +3,10 @@
 namespace App\Account\Infrastructure\Repository;
 
 use App\Account\Domain\Repository\UserDecoratorRepository;
-use App\Account\Domain\{User, Email\Email};
+use App\Account\Domain\User;
 use App\Account\Infrastructure\Repository\Storage\UserStorageRepository;
 use App\Account\Infrastructure\Repository\Transaction\UserTransactionRepository;
+use App\Shared\Domain\Email\Email;
 use App\Shared\Domain\Id\UserId;
 
 final class UserRepository extends UserDecoratorRepository

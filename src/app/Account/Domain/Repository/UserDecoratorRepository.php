@@ -3,8 +3,8 @@
 namespace App\Account\Domain\Repository;
 
 use App\Shared\Domain\Id\UserId;
+use App\Shared\Domain\Email\Email;
 use App\Account\Domain\User;
-use App\Account\Domain\Email\Email;
 
 abstract class UserDecoratorRepository implements UserRepositoryInterface
 {

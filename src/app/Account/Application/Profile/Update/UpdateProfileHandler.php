@@ -3,11 +3,10 @@
 namespace App\Account\Application\Profile\Update;
 
 use App\Shared\Application\Handler;
+use App\Shared\Domain\Email\Email;
 use App\Account\Domain\Repository\UserRepositoryInterface;
-use App\Account\Domain\Email\Email;
 use App\Account\Domain\Password\Password;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\{Auth, Log};
 
 final class UpdateProfileHandler extends Handler
 {

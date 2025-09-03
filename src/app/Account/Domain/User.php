@@ -8,12 +8,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Shared\Domain\AggregateRoot;
 use App\Shared\Domain\Date\CreatedDateProvider;
 use App\Shared\Domain\Date\UpdatedDateProvider;
+use App\Shared\Domain\Email\Email;
+use App\Shared\Domain\Email\EmailVerification;
 use App\Shared\Domain\Id\UserId;
 use App\Shared\Domain\Id\RoleId;
 use App\Account\Domain\Changer\UserStateChange;
 use App\Account\Domain\Relationship\UserRelationship;
-use App\Account\Domain\Email\Email;
-use App\Account\Domain\Email\EmailVerification;
 use App\Account\Domain\Password\Password;
 
 #[ORM\Entity]

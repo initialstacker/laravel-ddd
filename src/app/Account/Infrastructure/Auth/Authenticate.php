@@ -2,10 +2,10 @@
 
 namespace App\Account\Infrastructure\Auth;
 
-use App\Account\Domain\Email\Email;
+use App\Shared\Domain\Email\Email;
+use App\Shared\Domain\Id\UserId;
 use App\Account\Domain\Provider\AuthProviderInterface;
 use App\Account\Domain\Repository\UserRepositoryInterface;
-use App\Shared\Domain\Id\UserId;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;

@@ -1,14 +1,6 @@
-x-environment: &environment
-  env_file:
-    - path: ./src/.env.example
-      required: true
-    - path: ./src/.env
-      required: false
-
 services:
   # PHP application service
   app:
-    <<: *environment
     build:
       context: .
       dockerfile: ./Dockerfile

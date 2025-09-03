@@ -20,10 +20,7 @@ return new class extends Migration
 
                 $table->enum(
                     column: 'guard',
-                    allowed: [
-                        'api',
-                        'web'
-                    ]
+                    allowed: ['api', 'web']
                 )->default(
                     value: 'api'
                 );

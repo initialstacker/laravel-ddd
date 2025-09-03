@@ -2,8 +2,8 @@
 
 namespace App\Account\Infrastructure\Auth;
 
-use App\Account\Domain\User;
 use App\Shared\Infrastructure\Middleware;
+use App\Account\Domain\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\{Request, Response};

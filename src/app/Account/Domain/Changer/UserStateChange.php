@@ -2,7 +2,7 @@
 
 namespace App\Account\Domain\Changer;
 
-use App\Account\Domain\Email\Email;
+use App\Shared\Domain\Email\Email;
 use App\Account\Domain\Password\Password;
 
 trait UserStateChange

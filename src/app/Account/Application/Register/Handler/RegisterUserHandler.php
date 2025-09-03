@@ -3,10 +3,10 @@
 namespace App\Account\Application\Register\Handler;
 
 use App\Shared\Application\Handler;
+use App\Shared\Domain\Email\Email;
 use App\Account\Domain\Repository\UserRepositoryInterface;
 use App\Account\Application\Register\RegisterCommand;
 use App\Account\Domain\User;
-use App\Account\Domain\Email\Email;
 use App\Account\Domain\Password\Password;
 use Illuminate\Support\Facades\Log;
 

@@ -3,9 +3,9 @@
 namespace App\Account\Application\Register\Handler;
 
 use App\Shared\Application\Handler;
+use App\Shared\Domain\Slug\RoleSlug;
 use App\Account\Domain\Repository\RoleRepositoryInterface;
 use App\Account\Application\Register\RegisterCommand;
-use App\Shared\Domain\Slug\RoleSlug;
 
 final class FetchUserRoleHandler extends Handler
 {

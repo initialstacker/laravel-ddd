@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Account\Domain\Email;
+namespace App\Shared\Domain\Email;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
