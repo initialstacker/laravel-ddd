@@ -60,3 +60,4 @@ final class DoctrineConnector extends ServiceProvider
         );
     }
 }
+
