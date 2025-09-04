@@ -5,10 +5,10 @@ info:
   version: 1.0.0
 
 servers:
-  - url: https://localhost
+  - url: https://localhost:8000
 
 paths:
-  /v1/login:
+  /api/v1/login:
     post:
       summary: User authentication and token generation
       tags:
@@ -102,6 +102,394 @@ paths:
                         type: string
                         format: date-time
       security: []
+
+  /api/v1/register:
+    post:
+      summary: User registration
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+                - password_confirmation
+              properties:
+                name:
+                  type: string
+                  example: Test
+                email:
+                  type: string
+                  format: email
+                  example: test@mail.ru
+                password:
+                  type: string
+                  format: password
+                  example: strongpassword123
+                password_confirmation:
+                  type: string
+                  format: password
+                  example: strongpassword123
+      responses:
+        '201':
+          description: Registration successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 201
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Registration successful!
+                  metadata:
+                    type: object
+                    properties:
+                      request_id:
+                        type: string
+                        example: 3ab32b2f-5b1a-49ac-99fb-3ec879ba78f1
+                      timestamp:
+                        type: string
+                        format: date-time
+                        example: '2025-09-03T15:53:26+00:00'
+        '500':
+          description: Registration failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Registration failed. Try again.
+                  metadata:
+                    type: object
+                    properties:
+                      request_id:
+                        type: string
+                        example: 3ab32b2f-5b1a-49ac-99fb-3ec879ba78f1
+                      timestamp:
+                        type: string
+                        format: date-time
+      security: []
+
+  /api/v1/logout:
+    post:
+      summary: User logout
+      tags:
+        - Authentication
+      responses:
+        '200':
+          description: Successful logout
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: You have been logged out successfully!
+                  metadata:
+                    type: object
+                    properties:
+                      request_id:
+                        type: string
+                        example: ad87e497-1ab2-4e1d-9f00-ab21c65d38ba
+                      timestamp:
+                        type: string
+                        format: date-time
+                        example: '2025-09-03T16:03:24+00:00'
+        '500':
+          description: Logout failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Logout failed. Please try again.
+                  metadata:
+                    type: object
+                    properties:
+                      request_id:
+                        type: string
+                        example: 3ab32b2f-5b1a-49ac-99fb-3ec879ba78f1
+                      timestamp:
+                        type: string
+                        format: date-time
+                        example: '2025-09-03T15:53:26+00:00'
+      security:
+        - bearerAuth: []
+
+  /api/v1/profile:
+    get:
+      summary: Get user profile
+      tags:
+        - Profile
+      responses:
+        '200':
+          description: Successful profile retrieval
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        example: 6a2795c6-8a90-452e-b61f-3ef078b1e064
+                      name:
+                        type: string
+                        example: admin
+                      email:
+                        type: string
+                        format: email
+                        example: admin@mail.ru
+                      role:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            format: uuid
+                            example: 257512e1-7a42-4e03-b115-18ff44679e9a
+                          name:
+                            type: string
+                            example: Администратор
+                          slug:
+                            type: string
+                            example: admin
+                      datetime:
+                        type: object
+                        properties:
+                          created_at:
+                            type: string
+                            example: '2025-09-03 15:53:15'
+                          updated_at:
+                            type: string
+                            example: '2025-09-03 15:53:15'
+                  metadata:
+                    type: object
+                    properties:
+                      request_id:
+                        type: string
+                        example: 0e937ac2-f75f-49d9-9fb7-17236a9ab409
+                      timestamp:
+                        type: string
+                        format: date-time
+                        example: '2025-09-03T16:07:25+00:00'
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 404
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: User not found.
+                  metadata:
+                    type: object
+                    properties:
+                      request_id:
+                        type: string
+                        example: 3ab32b2f-5b1a-49ac-99fb-3ec879ba78f1
+                      timestamp:
+                        type: string
+                        format: date-time
+                        example: '2025-09-03T15:53:26+00:00'
+      security:
+        - bearerAuth: []
+
+    post:
+      summary: Update user profile
+      tags:
+        - Profile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - email
+                - password
+                - password_confirmation
+                - _method
+              properties:
+                name:
+                  type: string
+                  example: Test
+                email:
+                  type: string
+                  format: email
+                  example: test2@mail.ru
+                password:
+                  type: string
+                  format: password
+                  example: strongpassword123
+                password_confirmation:
+                  type: string
+                  format: password
+                  example: strongpassword123
+                _method:
+                  type: string
+                  example: PUT
+      responses:
+        '200':
+          description: Profile updated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Profile updated successfully!
+                  metadata:
+                    type: object
+                    properties:
+                      request_id:
+                        type: string
+                        example: 67c87697-18e9-4122-894a-f1d7f9c79f39
+                      timestamp:
+                        type: string
+                        format: date-time
+                        example: '2025-09-03T16:11:52+00:00'
+        '500':
+          description: Failed to update profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Failed to update profile.
+                  metadata:
+                    type: object
+                    properties:
+                      request_id:
+                        type: string
+                        example: 3ab32b2f-5b1a-49ac-99fb-3ec879ba78f1
+                      timestamp:
+                        type: string
+                        format: date-time
+      security:
+        - bearerAuth: []
+
+    delete:
+      summary: Delete user profile
+      tags:
+        - Profile
+      responses:
+        '200':
+          description: Profile deleted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 200
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Profile deleted successfully!
+                  metadata:
+                    type: object
+                    properties:
+                      request_id:
+                        type: string
+                        example: 7042b76f-cdb8-4936-8a3c-10748da04c6e
+                      timestamp:
+                        type: string
+                        format: date-time
+                        example: '2025-09-03T16:15:41+00:00'
+        '500':
+          description: Failed to delete profile
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: integer
+                    example: 500
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: Failed to delete profile.
+                  metadata:
+                    type: object
+                    properties:
+                      request_id:
+                        type: string
+                        example: 3ab32b2f-5b1a-49ac-99fb-3ec879ba78f1
+                      timestamp:
+                        type: string
+                        format: date-time
+                        example: '2025-09-03T15:53:26+00:00'
+      security:
+        - bearerAuth: []
 
 components:
   securitySchemes:
