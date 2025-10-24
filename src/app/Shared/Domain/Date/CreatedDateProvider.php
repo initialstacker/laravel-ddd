@@ -4,7 +4,6 @@ namespace App\Shared\Domain\Date;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
-use Symfony\Component\Validator\Constraints as Assert;
 use Carbon\CarbonImmutable;
 
 #[ORM\HasLifecycleCallbacks]
@@ -15,7 +14,6 @@ trait CreatedDateProvider
      *
      * @var \DateTimeImmutable
      */
-    #[Assert\NotNull(message: 'Created at must not be null.')]
     #[ORM\Column(name: 'created_at', type: Types::DATETIME_IMMUTABLE, options: [
         'precision' => 6,
         'default' => 'CURRENT_TIMESTAMP',

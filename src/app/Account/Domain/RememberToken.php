@@ -29,4 +29,17 @@ trait RememberToken
             $this->rememberToken = $rememberToken;
         }
     }
+
+    /**
+     * Change the "remember me" token.
+     *
+     * @param string|null $rememberToken
+     */
+    public function changeRememberToken(
+        ?string $rememberToken): void
+    {
+        $this->rememberToken = $rememberToken !== null ? trim(
+            string: $rememberToken
+        ) : null;
+    }
 }

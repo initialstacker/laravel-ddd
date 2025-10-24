@@ -24,7 +24,8 @@
   "extra_config": {
     "security/cors": {
       "allow_origins": [],
-      "allow_credentials": false
+      "allow_credentials": true,
+      "max_age": "12h"
     },
     "router": {
       "return_error_msg": true
@@ -37,7 +38,7 @@
       "input_headers": ["Accept", "Content-Type"],
       "backend": [
         {
-          "host": ["https://nginx:443"],
+          "host": ["https://nginx:8443"],
           "url_pattern": "/api/v1/login",
           "encoding": "json",
           "extra_config": {
@@ -62,7 +63,7 @@
       "input_headers": ["Accept", "Content-Type"],
       "backend": [
         {
-          "host": ["https://nginx:443"],
+          "host": ["https://nginx:8443"],
           "url_pattern": "/api/v1/register",
           "encoding": "json",
           "extra_config": {
@@ -87,8 +88,158 @@
       "input_headers": ["Authorization", "Accept", "Content-Type"],
       "backend": [
         {
-          "host": ["https://nginx:443"],
+          "host": ["https://nginx:8443"],
           "url_pattern": "/api/v1/logout",
+          "encoding": "json",
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            },
+            "backend/http/client": {
+              "client_tls": {
+                "allow_insecure_connections": true,
+                "min_version": "TLS12",
+                "max_version": "TLS13",
+                "ca_certs": ["/etc/ssl/ca.crt"]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/check-auth",
+      "method": "GET",
+      "input_headers": ["Authorization", "Accept", "Content-Type"],
+      "backend": [
+        {
+          "host": ["https://nginx:8443"],
+          "url_pattern": "/api/v1/check-auth",
+          "encoding": "json",
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            },
+            "backend/http/client": {
+              "client_tls": {
+                "allow_insecure_connections": true,
+                "min_version": "TLS12",
+                "max_version": "TLS13",
+                "ca_certs": ["/etc/ssl/ca.crt"]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/check-me",
+      "method": "GET",
+      "input_headers": ["Authorization", "Accept", "Content-Type"],
+      "backend": [
+        {
+          "host": ["https://nginx:8443"],
+          "url_pattern": "/api/v1/check-me",
+          "encoding": "json",
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            },
+            "backend/http/client": {
+              "client_tls": {
+                "allow_insecure_connections": true,
+                "min_version": "TLS12",
+                "max_version": "TLS13",
+                "ca_certs": ["/etc/ssl/ca.crt"]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/forgot-password",
+      "method": "POST",
+      "input_headers": ["Authorization", "Accept", "Content-Type"],
+      "backend": [
+        {
+          "host": ["https://nginx:8443"],
+          "url_pattern": "/api/v1/forgot-password",
+          "encoding": "json",
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            },
+            "backend/http/client": {
+              "client_tls": {
+                "allow_insecure_connections": true,
+                "min_version": "TLS12",
+                "max_version": "TLS13",
+                "ca_certs": ["/etc/ssl/ca.crt"]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/reset-password",
+      "method": "POST",
+      "input_headers": ["Authorization", "Accept", "Content-Type"],
+      "backend": [
+        {
+          "host": ["https://nginx:8443"],
+          "url_pattern": "/api/v1/reset-password",
+          "encoding": "json",
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            },
+            "backend/http/client": {
+              "client_tls": {
+                "allow_insecure_connections": true,
+                "min_version": "TLS12",
+                "max_version": "TLS13",
+                "ca_certs": ["/etc/ssl/ca.crt"]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/issue-token",
+      "method": "POST",
+      "input_headers": ["Authorization", "Accept", "Content-Type"],
+      "backend": [
+        {
+          "host": ["https://nginx:8443"],
+          "url_pattern": "/api/v1/issue-token",
+          "encoding": "json",
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            },
+            "backend/http/client": {
+              "client_tls": {
+                "allow_insecure_connections": true,
+                "min_version": "TLS12",
+                "max_version": "TLS13",
+                "ca_certs": ["/etc/ssl/ca.crt"]
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/api/v1/refresh-token",
+      "method": "POST",
+      "input_headers": ["Authorization", "Accept", "Content-Type"],
+      "backend": [
+        {
+          "host": ["https://nginx:8443"],
+          "url_pattern": "/api/v1/issue-token",
           "encoding": "json",
           "extra_config": {
             "backend/http": {
@@ -112,7 +263,7 @@
       "input_headers": ["Authorization", "Accept", "Content-Type"],
       "backend": [
         {
-          "host": ["https://nginx:443"],
+          "host": ["https://nginx:8443"],
           "url_pattern": "/api/v1/profile",
           "encoding": "json",
           "extra_config": {
@@ -137,7 +288,7 @@
       "input_headers": ["Authorization", "Accept", "Content-Type"],
       "backend": [
         {
-          "host": ["https://nginx:443"],
+          "host": ["https://nginx:8443"],
           "url_pattern": "/api/v1/profile",
           "encoding": "json",
           "extra_config": {
@@ -162,7 +313,7 @@
       "input_headers": ["Authorization", "Accept", "Content-Type"],
       "backend": [
         {
-          "host": ["https://nginx:443"],
+          "host": ["https://nginx:8443"],
           "url_pattern": "/api/v1/profile",
           "encoding": "json",
           "extra_config": {

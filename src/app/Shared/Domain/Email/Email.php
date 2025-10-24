@@ -4,7 +4,6 @@ namespace App\Shared\Domain\Email;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
-use Symfony\Component\Validator\Constraints as Assert;
 use App\Shared\Domain\Primitive;
 
 #[ORM\Embeddable]
@@ -15,9 +14,6 @@ final class Email extends Primitive
      *
      * @var string
      */
-    #[Assert\NotBlank(message: 'Email must not be empty.')]
-    #[Assert\Email(message: 'Email must be a valid email address.')]
-    #[Assert\Length(max: 254, maxMessage: 'Email must be less than 254 characters.')]
     #[ORM\Column(name: 'email', type: Types::STRING, length: 254, unique: true)]
     private string $email;
 

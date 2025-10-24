@@ -1,0 +1,16 @@
+openapi: 3.0.3
+info:
+  title: Laravel API Gateway service
+  version: 1.0.0
+servers:
+  - url: https://localhost
+
+paths: {}
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Bearer token authentication

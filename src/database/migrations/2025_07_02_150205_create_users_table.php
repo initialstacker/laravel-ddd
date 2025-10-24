@@ -15,6 +15,7 @@ return new class extends Migration
             callback: function (Blueprint $table): void {
                 $table->uuid(column: 'id')->primary();
 
+                $table->string(column: 'avatar', length: 255)->nullable();
                 $table->string(column: 'name', length: 35);
                 $table->string(column: 'email', length: 244)->unique();
                 $table->timestamp(column: 'email_verified_at')->nullable();
@@ -62,6 +63,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists(table: 'users');
-        Schema::dropIfExists('sessions');
+        Schema::dropIfExists(table: 'password_reset_tokens');
+        Schema::dropIfExists(table: 'sessions');
     }
 };

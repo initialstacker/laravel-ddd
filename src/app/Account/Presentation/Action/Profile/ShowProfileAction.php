@@ -10,7 +10,6 @@ use App\Shared\Presentation\Response\ResourceResponse;
 use Spatie\RouteAttributes\Attributes\Prefix;
 use Spatie\RouteAttributes\Attributes\Middleware;
 use Spatie\RouteAttributes\Attributes\Route;
-use Illuminate\Http\Request;
 
 #[Prefix(prefix: 'v1')]
 #[Middleware(middleware: 'auth:api')]
@@ -42,13 +41,13 @@ final class ShowProfileAction extends Action
     #[Route(methods: 'GET', uri: '/profile')]
     public function __invoke(): ResourceResponse
     {
-        /** @var \App\Account\Domain\User|null $user */
-        $user = $this->queryBus->ask(
+        /** @var User|null $result */
+        $result = $this->queryBus->ask(
             query: new ShowProfileQuery()
         );
 
         return $this->responder->respond(
-            result: $user
+            result: $result
         );
     }
 }

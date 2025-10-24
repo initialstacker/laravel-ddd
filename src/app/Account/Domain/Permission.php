@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Validator\Constraints as Assert;
 use App\Account\Domain\Changer\PermissionStateChange;
 use App\Account\Domain\Relationship\PermissionRelationship;
 use App\Shared\Domain\AggregateRoot;
@@ -50,13 +49,6 @@ class Permission extends AggregateRoot
      *
      * @var string
      */
-    #[Assert\NotBlank(message: 'Name should not be blank.')]
-    #[Assert\Length(
-        min: 2,
-        max: 13,
-        minMessage: 'Name must be at least {{ limit }} characters long.',
-        maxMessage: 'Name cannot be longer than {{ limit }} characters.'
-    )]
     #[ORM\Column(name: 'name', type: Types::STRING, length: 13)]
     public private(set) string $name {
         set (string $value) {
@@ -72,7 +64,6 @@ class Permission extends AggregateRoot
      *
      * @var PermissionSlug
      */
-    #[Assert\Valid]
     #[ORM\Column(name: 'slug', type: PermissionSlug::class, unique: true)]
     public private(set) PermissionSlug $slug;
 
@@ -81,8 +72,6 @@ class Permission extends AggregateRoot
      *
      * @var Guard
      */
-    #[Assert\NotBlank(message: 'Guard must not be blank.')]
-    #[Assert\Choice(callback: [Guard::class, 'cases'], message: 'Choose a valid guard value.')]
     #[ORM\Column(name: 'guard', type: Types::ENUM, enumType: Guard::class)]
     public private(set) Guard $guard;
 

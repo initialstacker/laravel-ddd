@@ -3,12 +3,28 @@
 namespace App\Account\Infrastructure\Auth;
 
 use App\Account\Domain\User;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Auth\Authenticatable;
-use Tymon\JWTAuth\Contracts\JWTSubject;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Notifications\Notifiable;
 
-final class AuthUserAdapter implements AuthenticatableContract, JWTSubject
+final class AuthUserAdapter implements
+    AuthenticatableContract,
+    JWTSubject,
+    CanResetPasswordContract
 {
+    /**
+     * Enables password reset functionality for the user.
+     */
+    use CanResetPassword;
+
+    /**
+     * Enables notification sending capabilities for the user.
+     */
+    use Notifiable;
+
     /**
      * Provides authentication methods for the user.
      */
@@ -54,5 +70,56 @@ final class AuthUserAdapter implements AuthenticatableContract, JWTSubject
     public function getKeyName(): string
     {
         return 'id';
+    }
+
+    /**
+     * Get the user's email address as string.
+     *
+     * @return string The user's email.
+     */
+    public function getEmail(): string
+    {
+        return $this->user->email->asString();
+    }
+
+    /**
+     * Get the "remember me" token value.
+     *
+     * @return string|null
+     */
+    public function getRememberToken(): ?string
+    {
+        return $this->user->rememberToken ?? null;
+    }
+
+    /**
+     * Set the "remember me" token value.
+     *
+     * @param string|null $value
+     */
+    public function setRememberToken($value): void
+    {
+        $this->user->changeRememberToken(rememberToken: $value);
+    }
+
+    /**
+     * Get the name of the "remember me" token column.
+     *
+     * @return string
+     */
+    public function getRememberTokenName(): string
+    {
+        return 'rememberToken';
+    }
+
+    /**
+     * Magic getter for accessing wrapped user properties.
+     *
+     * @param string $name
+     * @return mixed
+     */
+    public function __get(string $name)
+    {
+        return $this->user->$name;
     }
 }

@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Symfony\Component\Validator\Constraints as Assert;
 use App\Account\Domain\Changer\RoleStateChange;
 use App\Account\Domain\Relationship\RoleRelationship;
 use App\Shared\Domain\AggregateRoot;
@@ -50,7 +49,6 @@ class Role extends AggregateRoot
      *
      * @var string
      */
-    #[Assert\NotBlank(message: 'Name should not be blank.')]
     #[ORM\Column(name: 'name', type: Types::STRING, length: 13)]
     public private(set) string $name {
         set (string $value) {
@@ -66,7 +64,6 @@ class Role extends AggregateRoot
      *
      * @var RoleSlug
      */
-    #[Assert\Valid]
     #[ORM\Column(name: 'slug', type: RoleSlug::class, unique: true)]
     public private(set) RoleSlug $slug;
 

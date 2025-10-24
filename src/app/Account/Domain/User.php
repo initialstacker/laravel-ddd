@@ -4,7 +4,6 @@ namespace App\Account\Domain;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
-use Symfony\Component\Validator\Constraints as Assert;
 use App\Shared\Domain\AggregateRoot;
 use App\Shared\Domain\Date\CreatedDateProvider;
 use App\Shared\Domain\Date\UpdatedDateProvider;
@@ -57,17 +56,18 @@ class User extends AggregateRoot
     public private(set) UserId $id;
 
     /**
+     * Avatar image path or filename.
+     *
+     * @var Avatar|null
+     */
+    #[ORM\Embedded(class: Avatar::class, columnPrefix: false)]
+    public private(set) ?Avatar $avatar = null;
+
+    /**
      * The user's name.
      *
      * @var string
      */
-    #[Assert\NotBlank(message: 'Name should not be blank.')]
-    #[Assert\Length(
-        min: 2,
-        max: 35,
-        minMessage: 'Name must be at least {{ limit }} characters long.',
-        maxMessage: 'Name cannot be longer than {{ limit }} characters.'
-    )]
     #[ORM\Column(name: 'name', type: Types::STRING, length: 35)]
     public private(set) string $name {
         set (string $value) {
@@ -83,7 +83,6 @@ class User extends AggregateRoot
      *
      * @var Email
      */
-    #[Assert\Valid]
     #[ORM\Embedded(class: Email::class, columnPrefix: false)]
     public private(set) Email $email;
 
@@ -92,7 +91,6 @@ class User extends AggregateRoot
      *
      * @var Password
      */
-    #[Assert\Valid]
     #[ORM\Embedded(class: Password::class, columnPrefix: false)]
     public private(set) Password $password;
 
@@ -111,12 +109,14 @@ class User extends AggregateRoot
      * @param string $name
      * @param Email $email
      * @param Password $password
+     * @param Avatar|null $avatar
      * @param UserId|null $id
      */
     public function __construct(
         string $name,
         Email $email,
         Password $password,
+        ?Avatar $avatar = null,
         ?UserId $id = null,
     ) {
         /**
@@ -127,6 +127,7 @@ class User extends AggregateRoot
         /**
          * Assigns user personal and account details.
          */
+        $this->avatar = $avatar;
         $this->name = $name;
         $this->email = $email;
         $this->password = $password;

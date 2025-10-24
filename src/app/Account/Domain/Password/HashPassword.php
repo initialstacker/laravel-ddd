@@ -3,7 +3,6 @@
 namespace App\Account\Domain\Password;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use App\Shared\Domain\Primitive;
 
 #[ORM\MappedSuperclass]
@@ -14,12 +13,6 @@ class HashPassword extends Primitive
      *
      * @var string
      */
-    #[Assert\NotBlank(message: 'Password hash must not be empty.')]
-    #[Assert\Length(
-        min: 60,
-        max: 60,
-        exactMessage: 'Password hash must be exactly {{ limit }} characters long.'
-    )]
     #[ORM\Column(name: 'password', type: 'string', length: 60)]
     protected string $hash;
 

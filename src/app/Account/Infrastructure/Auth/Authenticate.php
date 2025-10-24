@@ -79,7 +79,7 @@ final class Authenticate implements AuthProviderInterface, UserProvider
             return;
         }
 
-        $auth->setRememberToken(value: $token);
+        $auth->setRememberToken($token);
         $this->repository->save(user: $auth->user);
     }
 
@@ -174,20 +174,23 @@ final class Authenticate implements AuthProviderInterface, UserProvider
     public function getTokenByCredentials(array $credentials): ?array
     {
         $user = $this->retrieveByCredentials(credentials: $credentials);
+
         if ($user === null) {
             return null;
         }
 
-        if (!$this->validateCredentials(
-            auth: $user, credentials: $credentials)) {
+        if (!$this->validateCredentials(auth: $user, credentials: $credentials)) {
             return null;
         }
 
-        $this->rehashPasswordIfRequired(
-            auth: $user, credentials: $credentials);
+        $this->rehashPasswordIfRequired(auth: $user, credentials: $credentials);
 
-        $rememberToken = bin2hex(string: random_bytes(length: 30));
-        $this->updateRememberToken(auth: $user, token: $rememberToken);
+        $remember = data_get($credentials, 'rememberMe', false);
+
+        if ($remember) {
+            $rememberToken = bin2hex(random_bytes(30));
+            $this->updateRememberToken(auth: $user, token: $rememberToken);
+        }
 
         $accessToken = $this->issueToken(user: $user);
         $refreshToken = $this->issueRefreshToken(user: $user);

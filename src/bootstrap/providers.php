@@ -9,4 +9,5 @@ return [
     App\Account\Infrastructure\Dispatching\QueryDispatcher::class,
     App\Account\Infrastructure\EventServiceProvider::class,
     App\Account\Infrastructure\RepositoryBinding::class,
+    App\Account\Infrastructure\PasswordResetUrlConfigurator::class,
 ];

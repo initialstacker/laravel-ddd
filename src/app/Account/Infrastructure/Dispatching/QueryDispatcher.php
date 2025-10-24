@@ -7,8 +7,10 @@ use App\Account\Application\Profile\Show\ShowProfileHandler;
 use App\Account\Application\Profile\Show\ShowProfileQuery;
 use App\Account\Application\Profile\Delete\DeleteProfileHandler;
 use App\Account\Application\Profile\Delete\DeleteProfileQuery;
-use App\Account\Application\Logout\LogoutQuery;
-use App\Account\Application\Logout\LogoutHandler;
+use App\Account\Application\Auth\Check\Auth\CheckAuthHandler;
+use App\Account\Application\Auth\Check\Auth\CheckAuthQuery;
+use App\Account\Application\Auth\Check\Me\CheckMeHandler;
+use App\Account\Application\Auth\Check\Me\CheckMeQuery;
 use App\Shared\Domain\Bus\QueryBusInterface;
 
 final class QueryDispatcher extends ServiceProvider
@@ -19,7 +21,8 @@ final class QueryDispatcher extends ServiceProvider
      * @var array<class-string, class-string>
      */
     private array $auth = [
-        LogoutQuery::class => LogoutHandler::class,
+        CheckAuthQuery::class => CheckAuthHandler::class,
+        CheckMeQuery::class => CheckMeHandler::class,
     ];
     
     /**

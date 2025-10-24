@@ -19,6 +19,7 @@ final class LoginRequest extends Request
                 'bail', 'required', 'email:rfc,strict,spoof', 'max:254', 'exists:users,email'
             ],
             'password' => ['bail', 'required', 'string', 'min:8', 'max:28'],
+            'remember_me' => ['bail', 'sometimes', 'boolean'],
         ];
     }
 }

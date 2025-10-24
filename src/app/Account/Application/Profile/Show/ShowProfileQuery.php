@@ -22,7 +22,7 @@ final class ShowProfileQuery extends Query
      */
     public function __construct()
     {
-        /** @var \App\Account\Infrastructure\Auth\AuthUserAdapter|null $auth */
+        /** @var AuthUserAdapter|null $auth */
         $auth = Auth::user();
 
         if ($auth === null) {

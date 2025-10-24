@@ -2,8 +2,8 @@
 
 namespace App\Account\Presentation;
 
-use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Request;
 
 /**
  * @property \App\Account\Domain\User $resource
@@ -19,16 +19,20 @@ final class UserResource extends JsonResource
     public function toArray(Request $request): array
     {
         $user = $this->resource;
+        $avatar = $user->avatar;
 
         return [
-            'id' => $user->id->asString(),
+            'id' => $user->id,
+            'avatar' => $this->whenNotNull(
+                value: $avatar->asString() !== '' ? $avatar : null
+            ),
             'name' => $user->name,
-            'email' => $user->email->asString(),
+            'email' => $user->email,
             'role' => $this->whenNotNull(
                 value: $user->role !== null ? [
-                    'id' => $user->role->id->asString(),
+                    'id' => $user->role->id,
                     'name' => $user->role->name,
-                    'slug' => $user->role->slug->asString()
+                    'slug' => $user->role->slug
                 ] : null
             ),
             'datetime' => [

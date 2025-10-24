@@ -34,27 +34,28 @@ final class AuthTokenData
      */
     public function toArray(): array
     {
-        $hasAccessToken = $this->accessToken !== null;
-        $hasRefreshToken = $this->refreshToken !== null;
+        if ($this->accessToken !== null || $this->refreshToken !== null) {
+            $result = [];
 
-        if ($hasAccessToken && $hasRefreshToken) {
-            return [
-                'accessToken' => [
+            if ($this->accessToken !== null) {
+                $result['accessToken'] = [
                     'value' => $this->accessToken,
                     'expiresIn' => self::DEFAULT_EXPIRES_IN,
-                ],
-                'refreshToken' => [
+                    'tokenType' => 'bearer',
+                ];
+            }
+
+            if ($this->refreshToken !== null) {
+                $result['refreshToken'] = [
                     'value' => $this->refreshToken,
                     'expiresIn' => self::DEFAULT_REFRESH_EXPIRES_IN,
-                ],
-                'tokenType' => 'bearer',
-            ];
+                    'tokenType' => 'bearer',
+                ];
+            }
+            
+            return $result;
         }
 
-        if (isset($this->message) && $this->message !== '') {
-            return ['message' => $this->message];
-        }
-
-        return [];
+        return $this->message ? ['message' => $this->message] : [];
     }
 }
