@@ -20,8 +20,6 @@ abstract class JobChain
      */
     public function run(): mixed
     {
-        return Bus::chain(
-            command: $this->jobs
-        )->dispatch();
+        return Bus::chain($this->jobs)->dispatch();
     }
 }

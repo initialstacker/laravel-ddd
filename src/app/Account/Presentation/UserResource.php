@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Request;
 
 /**
+ * @mixin \App\Account\Domain\User
  * @property \App\Account\Domain\User $resource
  */
 final class UserResource extends JsonResource

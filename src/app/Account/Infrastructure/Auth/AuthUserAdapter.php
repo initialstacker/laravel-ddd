@@ -10,6 +10,9 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @property \App\Account\Domain\User $user
+ */
 final class AuthUserAdapter implements
     AuthenticatableContract,
     JWTSubject,
@@ -120,6 +123,7 @@ final class AuthUserAdapter implements
      */
     public function __get(string $name)
     {
+        // @phpstan-ignore-next-line
         return $this->user->$name;
     }
 }

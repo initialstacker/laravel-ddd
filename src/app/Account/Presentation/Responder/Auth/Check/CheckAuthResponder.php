@@ -21,7 +21,7 @@ final class CheckAuthResponder
                 status: Response::HTTP_OK
             );
         }
-        return new ResourceResponse(
+        return new AuthResponse(
             isAuthorized: false,
             status: Response::HTTP_UNAUTHORIZED
         );

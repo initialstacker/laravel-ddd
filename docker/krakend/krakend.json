@@ -9,8 +9,8 @@
   "tls": {
     "keys": [
       {
-        "public_key": "/etc/ssl/krakend.crt",
-        "private_key": "/etc/ssl/krakend.key"
+        "public_key": "/etc/ssl/server.crt",
+        "private_key": "/etc/ssl/server.key"
       }
     ],
     "min_version": "TLS12",

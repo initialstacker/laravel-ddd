@@ -7,8 +7,8 @@ services:
       - "127.0.0.1:8000:8000"
     volumes:
       - ./docker/krakend:/etc/krakend
-      - ./certs/krakend.crt:/etc/ssl/krakend.crt:ro
-      - ./certs/krakend.key:/etc/ssl/krakend.key:ro
+      - ./certs/server.crt:/etc/ssl/server.crt:ro
+      - ./certs/server.key:/etc/ssl/server.key:ro
       - ./certs/ca.crt:/etc/ssl/ca.crt:ro
     command: ["run", "-c", "/etc/krakend/krakend.json"]
     networks:
