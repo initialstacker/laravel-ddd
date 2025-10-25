@@ -3,9 +3,8 @@
 namespace App\Account\Application\Profile\Delete;
 
 use App\Shared\Application\Handler;
-use App\Shared\Domain\Id\UserId;
 use App\Account\Domain\Repository\UserRepositoryInterface;
-use App\Account\Domain\User;
+use Illuminate\Support\Facades\{Auth, Log};
 
 final class DeleteProfileHandler extends Handler
 {
@@ -19,34 +18,52 @@ final class DeleteProfileHandler extends Handler
     ) {}
 
     /**
-     * Handles DeleteProfileQuery
+     * Handles profile deletion for the authenticated user.
      *
-     * @param DeleteProfileQuery $query
+     * @param DeleteProfileCommand $command
      * @return bool
      */
-    public function handle(DeleteProfileQuery $query): bool
+    public function handle(DeleteProfileCommand $command): bool
     {
         try {
+            $auth = Auth::user();
+
+            if ($auth === null) {
+                throw new \RuntimeException(
+                    message: 'No authenticated user found.'
+                );
+            }
+
             $user = $this->repository->findById(
-                id: $query->userId
+                id: $auth->user->id
             );
 
-            if (is_null($user)) {
+            if ($user === null) {
                 throw new \RuntimeException(
-                    message: sprintf('
-                        User with ID "%s" not found.',
-                        $query->userId
-                    )
+                    message: 'User not found for the authenticated ID.'
                 );
             }
 
             $this->repository->remove(user: $user);
 
-            return true;
+            return $user === null;
         }
 
         catch (\Throwable $e) {
-            return false;
+            $message = trim(string: <<<MSG
+                Delete profile handler error: {$e->getMessage()}
+                in {$e->getFile()}:{$e->getLine()}
+            MSG);
+
+            Log::error(message: $message, context: [
+                'exception' => $e
+            ]);
+
+            throw new \RuntimeException(
+                message: 'Failed to delete profile due to error',
+                code: (int) $e->getCode(),
+                previous: $e
+            );
         }
     }
 }

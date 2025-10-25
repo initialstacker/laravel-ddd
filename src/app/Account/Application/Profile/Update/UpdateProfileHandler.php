@@ -32,28 +32,46 @@ final class UpdateProfileHandler extends Handler
             $auth = Auth::user();
             $user = $this->repository->findById(id: $auth->user->id);
 
-            $user->changeName(name: $command->name);
-            $user->changeEmail(
-                email: Email::fromString(value: $command->email)
-            );
-            $user->changePassword(password:
-                Password::fromPlain(
-                    value: $command->password
-                )
-            );
+            $updated = false;
 
-            $this->repository->save(user: $user);
+            if ($user->changeName(name: $command->name)) {
+                $updated = true;
+            }
 
-            return true;
+            $email = Email::fromString(value: $command->email);
+
+            if ($user->changeEmail(email: $email)) {
+                $updated = true;
+            }
+
+            $password = Password::fromPlain(value: $command->password);
+            
+            if ($user->changePassword(password: $password)) {
+                $updated = true;
+            }
+
+            if ($updated) {
+                $this->repository->save(user: $user);
+            }
+
+            return $updated;
         }
 
         catch (\Throwable $e) {
-            Log::error(
-                message: 'Update profile error: ' . $e->getMessage(),
-                context: ['exception' => $e]
-            );
+            $message = trim(string: <<<MSG
+                Update profile error: {$e->getMessage()}
+                in {$e->getFile()}:{$e->getLine()}
+            MSG);
 
-            return false;
+            Log::error(message: $message, context: [
+                'exception' => $e,
+            ]);
+
+            throw new \RuntimeException(
+                message: 'Failed to update profile due to error',
+                code: (int) $e->getCode(),
+                previous: $e
+            );
         }
     }
 }

@@ -19,6 +19,10 @@ use App\Account\Application\Auth\Password\Reset\ResetPasswordCommand;
 use App\Account\Application\Auth\Password\Reset\ResetPasswordHandler;
 use App\Account\Application\Profile\Update\UpdateProfileCommand;
 use App\Account\Application\Profile\Update\UpdateProfileHandler;
+use App\Account\Application\Profile\Delete\DeleteProfileCommand;
+use App\Account\Application\Profile\Delete\DeleteProfileHandler;
+use App\Account\Application\Role\Create\CreateRoleCommand;
+use App\Account\Application\Role\Create\CreateRoleHandler;
 use App\Shared\Domain\Bus\CommandBusInterface;
 
 final class CommandDispatcher extends ServiceProvider
@@ -45,6 +49,16 @@ final class CommandDispatcher extends ServiceProvider
      */
     private array $profile = [
         UpdateProfileCommand::class => UpdateProfileHandler::class,
+        DeleteProfileCommand::class => DeleteProfileHandler::class,
+    ];
+    
+    /**
+     * Role related command handlers
+     * 
+     * @var array<class-string, class-string>
+     */
+    private array $role = [
+        CreateRoleCommand::class => CreateRoleHandler::class,
     ];
 
     /**
@@ -54,7 +68,8 @@ final class CommandDispatcher extends ServiceProvider
     {
         $commandBus->register(map: [
             ...$this->auth,
-            ...$this->profile
+            ...$this->profile,
+            ...$this->role
         ]);
     }
 }

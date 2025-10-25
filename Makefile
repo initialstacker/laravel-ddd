@@ -11,6 +11,7 @@ COMPOSE_FILES := -f docker-compose.yml \
                  -f vendor/docker-compose.postgres.yml \
                  -f vendor/docker-compose.redis.yml \
                  -f vendor/docker-compose.rabbitmq.yml \
+                 -f vendor/docker-compose.mailhog.yml \
                  -f vendor/docker-compose.krakend.yml \
                  -f vendor/docker-compose.swagger.yml
 

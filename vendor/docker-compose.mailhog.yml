@@ -1,0 +1,14 @@
+services:
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "127.0.0.1:1025:1025"
+      - "127.0.0.1:8025:8025"
+    networks:
+      - app-network
+
+volumes: {}
+
+networks:
+  app-network:
+    external: true
