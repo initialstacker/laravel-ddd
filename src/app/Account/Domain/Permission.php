@@ -15,7 +15,7 @@ use App\Shared\Domain\Id\PermissionId;
 use App\Shared\Domain\Slug\PermissionSlug;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'permissions')]
+#[ORM\Table(name: '`permissions`')]
 #[ORM\HasLifecycleCallbacks]
 class Permission extends AggregateRoot
 {

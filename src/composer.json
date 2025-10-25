@@ -37,6 +37,7 @@
     ],
     "require": {
         "php": "^8.4",
+        "cweagans/composer-patches": "^1.7",
         "initialstack/doctrine": "1.0.0",
         "initialstack/middleware": "1.0.0",
         "initialstack/paginator": "1.0.0",
@@ -105,6 +106,11 @@
     "extra": {
         "laravel": {
             "dont-discover": []
+        },
+        "patches": {
+            "vladimir-yuldashev/laravel-queue-rabbitmq": [
+                "patches/rabbitmq-laravel-12-compat.patch"
+            ]
         }
     },
     "config": {
@@ -112,6 +118,7 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
+            "cweagans/composer-patches": true,
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
         }

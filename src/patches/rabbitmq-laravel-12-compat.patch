@@ -1,0 +1,32 @@
+--- a/src/Queue/RabbitMQQueue.php
++++ b/src/Queue/RabbitMQQueue.php
+@@ -62,7 +62,7 @@
+     /**
+      * Holds the Configuration
+      */
+-    protected QueueConfig $config;
++    protected QueueConfig $rabbitQueueConfig;
+
+     /**
+      * RabbitMQQueue constructor.
+@@ -69,7 +69,7 @@
+      */
+     public function __construct(QueueConfig $config)
+     {
+-        $this->config = $config;
++        $this->rabbitQueueConfig = $config;
+         $this->dispatchAfterCommit = $config->isDispatchAfterCommit();
+     }
+
+@@ -735,9 +735,9 @@
+         return [$destination, $exchange, $exchangeType, $attempts];
+     }
+
+-    protected function getConfig(): QueueConfig
++    public function getConfig(): QueueConfig
+     {
+-        return $this->config;
++        return $this->rabbitQueueConfig;
+     }
+
+     /**

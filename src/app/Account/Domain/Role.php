@@ -15,7 +15,7 @@ use App\Shared\Domain\Id\RoleId;
 use App\Shared\Domain\Slug\RoleSlug;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'roles')]
+#[ORM\Table(name: '`roles`')]
 #[ORM\HasLifecycleCallbacks]
 class Role extends AggregateRoot
 {

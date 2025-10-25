@@ -8,7 +8,7 @@ use App\Account\Application\Auth\Register\Handler\RegisterUserHandler;
 
 final class RegisterProcess extends Process
 {
-	/**
+    /**
      * List of process handlers to be executed in order.
      *
      * @var array<int, class-string>
@@ -29,7 +29,9 @@ final class RegisterProcess extends Process
     public function __invoke(RegisterCommand $command): bool
     {
         try {
-            $this->run(command: $command);
+            dispatch(
+                new RegisterJob(command: $command)
+            );
 
             return true;
         }

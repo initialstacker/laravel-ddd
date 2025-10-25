@@ -16,7 +16,7 @@ use App\Account\Domain\Relationship\UserRelationship;
 use App\Account\Domain\Password\Password;
 
 #[ORM\Entity]
-#[ORM\Table(name: 'users')]
+#[ORM\Table(name: '`users`')]
 #[ORM\HasLifecycleCallbacks]
 class User extends AggregateRoot
 {
