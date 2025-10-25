@@ -3,8 +3,8 @@
 namespace App\Account\Presentation\Action\Profile;
 
 use App\Shared\Presentation\Controller as Action;
-use App\Shared\Domain\Bus\QueryBusInterface;
-use App\Account\Application\Profile\Delete\DeleteProfileQuery;
+use App\Shared\Domain\Bus\CommandBusInterface;
+use App\Account\Application\Profile\Delete\DeleteProfileCommand;
 use App\Account\Presentation\Responder\Profile\DeleteProfileResponder;
 use App\Shared\Presentation\Response\MessageResponse;
 use Spatie\RouteAttributes\Attributes\Prefix;
@@ -26,10 +26,10 @@ final class DeleteProfileAction extends Action
     /**
      * Constructs a new DeleteProfileAction instance.
      *
-     * @param QueryBusInterface $commandBus
+     * @param CommandBusInterface $commandBus
      */
     public function __construct(
-        private readonly QueryBusInterface $queryBus
+        private readonly CommandBusInterface $commandBus
     ) {
         $this->responder = new DeleteProfileResponder();
     }
@@ -43,10 +43,10 @@ final class DeleteProfileAction extends Action
     #[Route(methods: 'DELETE', uri: '/profile')]
     public function __invoke(Request $request): MessageResponse
     {
-        $query = new DeleteProfileQuery();
+        $command = DeleteProfileCommand::fromRequest(request: $request);
 
         return $this->responder->respond(
-            result: $this->queryBus->ask(query: $query)
+            result: $this->commandBus->send(command: $command)
         );
     }
 }

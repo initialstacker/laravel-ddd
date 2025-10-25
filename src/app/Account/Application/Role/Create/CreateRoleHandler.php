@@ -4,6 +4,7 @@ namespace App\Account\Application\Role\Create;
 
 use App\Shared\Application\Handler;
 use App\Account\Domain\Repository\RoleRepositoryInterface;
+use App\Account\Domain\Role;
 use App\Shared\Domain\Slug\RoleSlug as Slug;
 use Illuminate\Support\Facades\Log;
 
