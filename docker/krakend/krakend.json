@@ -160,7 +160,7 @@
     {
       "endpoint": "/api/v1/forgot-password",
       "method": "POST",
-      "input_headers": ["Authorization", "Accept", "Content-Type"],
+      "input_headers": ["Accept", "Content-Type"],
       "backend": [
         {
           "host": ["https://nginx:8443"],
@@ -185,7 +185,7 @@
     {
       "endpoint": "/api/v1/reset-password",
       "method": "POST",
-      "input_headers": ["Authorization", "Accept", "Content-Type"],
+      "input_headers": ["Accept", "Content-Type"],
       "backend": [
         {
           "host": ["https://nginx:8443"],
