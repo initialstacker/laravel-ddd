@@ -20,6 +20,18 @@ final class RoleStorageRepository implements RoleRepositoryInterface
     ) {}
 
     /**
+     * Return all Role entities.
+     * 
+     * @return Role[]
+     */
+    public function all(): array
+    {
+        return $this->entityManager->getRepository(
+            className: Role::class
+        )->findAll();
+    }
+
+    /**
      * Find a Role entity by its UserId.
      *
      * @param RoleId $id
