@@ -2,25 +2,22 @@
 
 namespace App\Account\Domain\Repository;
 
-use App\Shared\Domain\Id\RoleId;
-use App\Shared\Domain\Slug\RoleSlug;
+use App\Shared\Domain\Repository\RoleRepositoryInterface as RepositoryInterface;
 use App\Account\Domain\Role;
 
 interface RoleRepositoryInterface
 {
-	/**
-     * Find a Role entity by its slug.
+    /**
+     * Save the given Role entity.
      *
-     * @param RoleSlug $slug
-     * @return Role|null
+     * @param Role $role
      */
-    public function findBySlug(RoleSlug $slug): ?Role;
+    public function save(Role $role): void;
 
     /**
-     * Find a Role entity by its ID.
+     * Remove the given Role entity.
      *
-     * @param RoleId $id
-     * @return Role|null
+     * @param Role $role
      */
-    public function findById(RoleId $id): ?Role;
+    public function remove(Role $role): void;
 }
