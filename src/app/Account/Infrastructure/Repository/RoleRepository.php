@@ -3,20 +3,22 @@
 namespace App\Account\Infrastructure\Repository;
 
 use App\Account\Domain\Role;
-use App\Account\Domain\Repository\RoleRepositoryInterface;
+use App\Account\Domain\Repository\RoleDecoratorRepository;
 use App\Account\Infrastructure\Repository\Storage\RoleStorageRepository;
 use App\Shared\Domain\Slug\RoleSlug;
 use App\Shared\Domain\Id\RoleId;
 
-final class RoleRepository implements RoleRepositoryInterface
+final class RoleRepository extends RoleDecoratorRepository
 {
     /**
-     * Injects repositories for reading and writing Role entities.
+     * Injects role storage and transaction repositories.
      *
      * @param RoleStorageRepository $storage
+     * @param RoleTransactionRepository $transaction
      */
     public function __construct(
-        private RoleStorageRepository $storage
+        private RoleStorageRepository $storage,
+        private RoleTransactionRepository $transaction
     ) {}
 
     /**
@@ -30,7 +32,7 @@ final class RoleRepository implements RoleRepositoryInterface
     }
 
     /**
-     * Find a Role entity by its UserId.
+     * Find a Role entity by its RoleId.
      *
      * @param RoleId $id
      * @return Role|null
@@ -49,5 +51,25 @@ final class RoleRepository implements RoleRepositoryInterface
     public function findBySlug(RoleSlug $slug): ?Role
     {
         return $this->storage->findBySlug(slug: $slug);
+    }
+
+    /**
+     * Save a Role entity using transactional repository.
+     *
+     * @param Role $role
+     */
+    public function save(Role $role): void
+    {
+        $this->transaction->save(role: $role);
+    }
+
+    /**
+     * Remove a Role entity using transactional repository.
+     *
+     * @param Role $role
+     */
+    public function remove(Role $role): void
+    {
+        $this->transaction->remove(role: $role);
     }
 }
