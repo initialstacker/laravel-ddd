@@ -2,9 +2,10 @@
 
 namespace App\Account\Infrastructure\Repository;
 
-use App\Account\Domain\Role;
 use App\Account\Domain\Repository\RoleDecoratorRepository;
+use App\Account\Domain\Role;
 use App\Account\Infrastructure\Repository\Storage\RoleStorageRepository;
+use App\Account\Infrastructure\Repository\Transaction\RoleTransactionRepository;
 use App\Shared\Domain\Slug\RoleSlug;
 use App\Shared\Domain\Id\RoleId;
 
