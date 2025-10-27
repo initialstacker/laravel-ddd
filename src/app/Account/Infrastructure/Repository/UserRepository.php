@@ -70,6 +70,11 @@ final class UserRepository extends UserDecoratorRepository
         $this->transaction->save(user: $user);
     }
 
+    /**
+     * Remove a User entity using transactional repository.
+     *
+     * @param User $user
+     */
     public function remove(User $user): void
     {
         $this->transaction->remove(user: $user);
