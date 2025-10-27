@@ -4,6 +4,7 @@ services:
     image: nginx:latest
     restart: always
     ports:
+      - "127.0.0.1:80:80"
       - "127.0.0.1:443:443"
       - "127.0.0.1:8443:8443"
     volumes:

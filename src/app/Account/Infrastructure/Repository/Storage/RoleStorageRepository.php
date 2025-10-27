@@ -16,7 +16,7 @@ final class RoleStorageRepository implements RoleRepositoryInterface
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(
-        private readonly EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager
     ) {}
 
     /**

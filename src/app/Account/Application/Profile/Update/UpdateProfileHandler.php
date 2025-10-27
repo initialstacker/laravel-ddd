@@ -30,31 +30,48 @@ final class UpdateProfileHandler extends Handler
         try {
             /** @var \App\Account\Infrastructure\Auth\AuthUserAdapter|null $auth */
             $auth = Auth::user();
-            $user = $this->repository->findById(id: $auth->user->id);
 
-            $updated = false;
+            if ($auth === null || !isset($auth->user->id)) {
+                throw new \RuntimeException(
+                    message: 'Authenticated user not found.'
+                );
+            }
 
-            if ($user->changeName(name: $command->name)) {
-                $updated = true;
+            $user = $this->repository->findById(id: $authUser->user->id);
+
+            if ($user === null) {
+                throw new \RuntimeException(
+                    message: "User with ID {$authUser->user->id} not found."
+                );
             }
 
             $email = Email::fromString(value: $command->email);
-
-            if ($user->changeEmail(email: $email)) {
-                $updated = true;
-            }
-
             $password = Password::fromPlain(value: $command->password);
-            
-            if ($user->changePassword(password: $password)) {
-                $updated = true;
+
+            $hasChanges = false;
+
+            if ($user->getName() !== $command->name) {
+                $user->changeName(name: $command->name);
+                $hasChanges = true;
             }
 
-            if ($updated) {
-                $this->repository->save(user: $user);
+            if (!$user->getEmail()->equals(other: $email)) {
+                $user->changeEmail(email: $email);
+                $hasChanges = true;
             }
 
-            return $updated;
+            if (!$user->getPassword()->equals(other: $password)) {
+                $user->changePassword(password: $password);
+                $hasChanges = true;
+            }
+
+            if (!$hasChanges) {
+                return false;
+            }
+
+            $this->repository->save(user: $user);
+
+            return true;
         }
 
         catch (\Throwable $e) {

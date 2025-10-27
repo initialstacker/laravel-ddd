@@ -2,12 +2,12 @@
 
 namespace App\Account\Infrastructure\Repository\Storage;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Exception\ORMException;
+use App\Account\Domain\Repository\UserDecoratorRepository;
 use App\Account\Domain\User;
 use App\Shared\Domain\Email\Email;
 use App\Shared\Domain\Id\UserId;
-use App\Account\Domain\Repository\UserDecoratorRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Exception\ORMException;
 
 final class UserStorageRepository extends UserDecoratorRepository
 {
@@ -17,7 +17,7 @@ final class UserStorageRepository extends UserDecoratorRepository
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(
-        private readonly EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager
     ) {}
 
     /**
