@@ -2,6 +2,8 @@
 
 namespace App\Account\Application\User\List;
 
+use App\Shared\Application\Query\Query;
+
 final class ShowUserQuery extends Query
 {
     /**
