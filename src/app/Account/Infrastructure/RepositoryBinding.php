@@ -17,6 +17,11 @@ final class RepositoryBinding extends ServiceProvider
         );
 
         $this->app->bind(
+            abstract: \App\Shared\Domain\Repository\RoleRepositoryInterface::class,
+            concrete: \App\Account\Infrastructure\Repository\RoleRepository::class
+        );
+
+        $this->app->bind(
             abstract: \App\Account\Domain\Repository\UserRepositoryInterface::class,
             concrete: \App\Account\Infrastructure\Repository\UserRepository::class
         );
