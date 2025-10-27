@@ -3,6 +3,7 @@
 namespace App\Account\Infrastructure\Repository\Storage;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Exception\ORMException;
 use App\Account\Domain\Role;
 use App\Account\Domain\Repository\RoleRepositoryInterface;
 use App\Shared\Domain\Id\RoleId;
