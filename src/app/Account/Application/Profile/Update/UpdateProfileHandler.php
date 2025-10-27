@@ -37,11 +37,11 @@ final class UpdateProfileHandler extends Handler
                 );
             }
 
-            $user = $this->repository->findById(id: $authUser->user->id);
+            $user = $this->repository->findById(id: $auth->user->id);
 
             if ($user === null) {
                 throw new \RuntimeException(
-                    message: "User with ID {$authUser->user->id} not found."
+                    message: "User with ID {$auth->user->id} not found."
                 );
             }
 
