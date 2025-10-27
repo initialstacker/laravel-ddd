@@ -9,6 +9,13 @@ use App\Account\Domain\User;
 abstract class UserDecoratorRepository implements UserRepositoryInterface
 {
     /**
+     * Return all User entities.
+     *
+     * @return User[]
+     */
+    abstract public function all(): array;
+    
+    /**
      * Find a User entity by its unique identifier.
      *
      * @param UserId $id
