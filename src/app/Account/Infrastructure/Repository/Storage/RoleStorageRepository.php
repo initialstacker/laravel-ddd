@@ -4,12 +4,12 @@ namespace App\Account\Infrastructure\Repository\Storage;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Exception\ORMException;
-use App\Account\Domain\Role;
-use App\Account\Domain\Repository\RoleRepositoryInterface;
+use App\Account\Domain\Repository\RoleDecoratorRepository;
 use App\Shared\Domain\Id\RoleId;
 use App\Shared\Domain\Slug\RoleSlug;
+use App\Account\Domain\Role;
 
-final class RoleStorageRepository implements RoleRepositoryInterface
+final class RoleStorageRepository extends RoleDecoratorRepository
 {
     /**
      * Doctrine EntityManager instance for DB operations.
