@@ -1,4 +1,5 @@
 services:
+  # MailHog service for dev email
   mailhog:
     image: mailhog/mailhog
     ports:
