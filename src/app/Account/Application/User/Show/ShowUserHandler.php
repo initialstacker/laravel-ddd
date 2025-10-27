@@ -3,8 +3,9 @@
 namespace App\Account\Application\Profile\Show;
 
 use App\Shared\Application\Handler;
-use App\Account\Domain\Repository\UserRepositoryInterface;
 use App\Shared\Domain\Id\UserId;
+use App\Account\Domain\Repository\UserRepositoryInterface;
+use App\Account\Domain\User;
 
 final class ShowUserHandler extends Handler
 {
