@@ -48,4 +48,48 @@ final class RoleStorageRepository implements RoleRepositoryInterface
             criteria: ['slug' => $slug]
         );
     }
+
+    /**
+     * Save the given Role entity.
+     *
+     * @param Role $role
+     * @throws \RuntimeException
+     */
+    public function save(Role $role): void
+    {
+        try {
+            $this->entityManager->persist(object: $role);
+            $this->entityManager->flush();
+        }
+
+        catch (ORMException $e) {
+            throw new \RuntimeException(
+                message: "Failed to save role: {$e->getMessage()}",
+                code: (int) $e->getCode(),
+                previous: $e
+            );
+        }
+    }
+
+    /**
+     * Remove the given Role entity.
+     *
+     * @param Role $role
+     * @throws \RuntimeException
+     */
+    public function remove(Role $role): void
+    {
+        try {
+            $this->entityManager->remove(object: $role);
+            $this->entityManager->flush();
+        }
+
+        catch (ORMException $e) {
+            throw new \RuntimeException(
+                message: "Failed to save role: {$e->getMessage()}",
+                code: (int) $e->getCode(),
+                previous: $e
+            );
+        }
+    }
 }
