@@ -16,7 +16,7 @@ final class RoleRepository implements RoleRepositoryInterface
      * @param RoleStorageRepository $storage
      */
     public function __construct(
-        private RoleStorageRepository $storage,
+        private RoleStorageRepository $storage
     ) {}
 
     /**
