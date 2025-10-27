@@ -16,8 +16,18 @@ final class RoleRepository implements RoleRepositoryInterface
      * @param RoleStorageRepository $storage
      */
     public function __construct(
-        private readonly RoleStorageRepository $storage,
+        private RoleStorageRepository $storage,
     ) {}
+
+    /**
+     * Return all Role entities.
+     *
+     * @return Role[]
+     */
+    public function all(): array
+    {
+        return $this->storage->all();
+    }
 
     /**
      * Find a Role entity by its UserId.
