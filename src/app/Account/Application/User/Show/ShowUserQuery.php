@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Account\Application\User\List;
+namespace App\Account\Application\User\Show;
 
 use App\Shared\Application\Query\Query;
 
