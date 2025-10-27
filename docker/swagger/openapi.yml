@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Test API Gateway service
+  title: Laravel API Gateway service
   version: 1.0.0
 servers:
   - url: https://localhost
