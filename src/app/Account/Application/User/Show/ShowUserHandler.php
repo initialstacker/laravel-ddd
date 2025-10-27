@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Account\Application\Profile\Show;
+namespace App\Account\Application\User\Show;
 
 use App\Shared\Application\Handler;
 use App\Shared\Domain\Id\UserId;
