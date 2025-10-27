@@ -21,6 +21,18 @@ final class UserStorageRepository extends UserDecoratorRepository
     ) {}
 
     /**
+     * Return all User entities.
+     * 
+     * @return User[]
+     */
+    public function all(): array
+    {
+        return $this->entityManager->getRepository(
+            className: User::class
+        )->findAll();
+    }
+
+    /**
      * Find a User by its unique identifier.
      *
      * @param UserId $id
