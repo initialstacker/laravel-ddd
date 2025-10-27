@@ -200,15 +200,15 @@ main() {
 
     # Generate rabbitmq key and cert
     generate_key "$RABBITMQ_KEY"
-    chmod 644 "$RABBITMQ_KEY"
+    chmod "$RABBITMQ_KEY"
     generate_cert "$RABBITMQ_KEY" "$RABBITMQ_CERT" "rabbitmq" "-extfile $OPENSSL_EXT_CONF -extensions server_cert"
-    chmod 644 "$RABBITMQ_CERT"
+    chmod "$RABBITMQ_CERT"
 
     # Generate redis key and cert
     generate_key "$REDIS_KEY"
-    chmod 644 "$REDIS_KEY"
+    chmod "$REDIS_KEY"
     generate_cert "$REDIS_KEY" "$REDIS_CERT" "redis" "-extfile $OPENSSL_EXT_CONF -extensions server_cert"
-    chmod 644 "$REDIS_CERT"
+    chmod "$REDIS_CERT"
 
     # Generate Diffie-Hellman parameters
     generate_dh_params
