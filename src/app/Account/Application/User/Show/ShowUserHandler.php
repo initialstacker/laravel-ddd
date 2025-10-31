@@ -3,7 +3,6 @@
 namespace App\Account\Application\User\Show;
 
 use App\Shared\Application\Handler;
-use App\Shared\Domain\Id\UserId;
 use App\Account\Domain\Repository\UserRepositoryInterface;
 use App\Account\Domain\User;
 
@@ -27,7 +26,7 @@ final class ShowUserHandler extends Handler
     public function handle(ShowUserQuery $query): ?User
     {
         return $this->repository->findById(
-            id: UserId::fromString(value: $query->userId)
+            id: $query->userId
         );
     }
 }
