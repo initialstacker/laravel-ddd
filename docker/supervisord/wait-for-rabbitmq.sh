@@ -16,7 +16,7 @@ done
 echo "RabbitMQ is up - starting Laravel Queue Worker."
 
 # Run Laravel queue worker using RabbitMQ
-/usr/local/bin/php /var/www/html/src/artisan queue:work rabbitmq \
+/usr/local/bin/php /srv/ddd/src/artisan queue:work rabbitmq \
   --queue=default \
   --sleep=3 \
   --tries=3 \

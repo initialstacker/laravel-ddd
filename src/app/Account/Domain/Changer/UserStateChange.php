@@ -2,11 +2,22 @@
 
 namespace App\Account\Domain\Changer;
 
-use App\Shared\Domain\Email\Email;
+use App\Account\Domain\Avatar;
 use App\Account\Domain\Password\Password;
+use App\Shared\Domain\Email\Email;
 
 trait UserStateChange
 {
+    /**
+     * Change the user's avatar.
+     *
+     * @param Avatar|null $avatar
+     */
+    public function changeAvatar(?Avatar $avatar): void
+    {
+        $this->avatar = $avatar;
+    }
+
     /**
      * Change the user's name.
      *

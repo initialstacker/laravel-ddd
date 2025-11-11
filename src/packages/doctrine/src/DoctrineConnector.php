@@ -49,9 +49,11 @@ final class DoctrineConnector extends ServiceProvider
                     config: $config
                 );
                 
-                foreach (config(key: 'doctrine.custom_types') as $name => $type) {
+                foreach (config(key: 'doctrine.custom_types', default: []) as $type) {
+                    [$name, $class] = $type;
+                    
                     if (!Type::hasType(name: $name)) {
-                        Type::addType(name: $name, type: $type);
+                        Type::addType(name: $name, type: $class);
                     }
                 }
 

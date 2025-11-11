@@ -82,11 +82,26 @@ return [
     |
     */
     'custom_types' => [
-        RoleIdType::NAME => RoleIdType::class,
-        PermissionIdType::NAME => PermissionIdType::class,
-        UserIdType::NAME => UserIdType::class,
-        RoleSlugType::NAME => RoleSlugType::class,
-        PermissionSlugType::NAME => PermissionSlugType::class,
+        [
+            App\Shared\Infrastructure\Id\RoleIdType::NAME,
+            App\Shared\Infrastructure\Id\RoleIdType::class
+        ],
+        [
+            App\Shared\Infrastructure\Id\PermissionIdType::NAME,
+            App\Shared\Infrastructure\Id\PermissionIdType::class
+        ],
+        [
+            App\Shared\Infrastructure\Id\UserIdType::NAME,
+            App\Shared\Infrastructure\Id\UserIdType::class
+        ],
+        [
+            App\Shared\Infrastructure\Slug\RoleSlugType::NAME,
+            App\Shared\Infrastructure\Slug\RoleSlugType::class
+        ],
+        [
+            App\Shared\Infrastructure\Slug\PermissionSlugType::NAME,
+            App\Shared\Infrastructure\Slug\PermissionSlugType::class
+        ],
     ],
 
     /*

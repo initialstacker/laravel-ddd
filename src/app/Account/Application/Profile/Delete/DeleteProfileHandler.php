@@ -22,6 +22,9 @@ final class DeleteProfileHandler extends Handler
      *
      * @param DeleteProfileCommand $command
      * @return bool
+     * 
+     * @throws \RuntimeException
+     * @throws \Throwable
      */
     public function handle(DeleteProfileCommand $command): bool
     {
@@ -49,21 +52,26 @@ final class DeleteProfileHandler extends Handler
             return $user === null;
         }
 
-        catch (\Throwable $e) {
-            $message = trim(string: <<<MSG
-                Delete profile handler error: {$e->getMessage()}
-                in {$e->getFile()}:{$e->getLine()}
-            MSG);
-
-            Log::error(message: $message, context: [
-                'exception' => $e
-            ]);
+        catch (\Exception $e) {
+            Log::error(
+                message: "Failed to delete profile: {$e->getMessage()}",
+                context: ['exception' => $e]
+            );
 
             throw new \RuntimeException(
-                message: 'Failed to delete profile due to error',
+                message: 'Failed to delete profile. Please try again.',
                 code: (int) $e->getCode(),
                 previous: $e
             );
+        }
+
+        catch (\Throwable $e) {
+            Log::critical(
+                message: 'Unexpected error: ' . $e->getMessage(),
+                context: ['exception' => $e]
+            );
+            
+            throw $e;
         }
     }
 }

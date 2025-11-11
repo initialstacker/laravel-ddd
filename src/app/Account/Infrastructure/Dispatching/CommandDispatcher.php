@@ -3,20 +3,20 @@
 namespace App\Account\Infrastructure\Dispatching;
 
 use Illuminate\Support\ServiceProvider;
-use App\Account\Application\Auth\Login\LoginCommand;
-use App\Account\Application\Auth\Login\LoginHandler;
-use App\Account\Application\Auth\Register\RegisterCommand;
-use App\Account\Application\Auth\Register\RegisterProcess;
-use App\Account\Application\Auth\Logout\LogoutCommand;
-use App\Account\Application\Auth\Logout\LogoutHandler;
-use App\Account\Application\Auth\Token\Issue\IssueTokenCommand;
-use App\Account\Application\Auth\Token\Issue\IssueTokenHandler;
-use App\Account\Application\Auth\Token\Refresh\RefreshTokenCommand;
-use App\Account\Application\Auth\Token\Refresh\RefreshTokenHandler;
-use App\Account\Application\Auth\Password\Forgot\ForgotPasswordCommand;
-use App\Account\Application\Auth\Password\Forgot\ForgotPasswordHandler;
-use App\Account\Application\Auth\Password\Reset\ResetPasswordCommand;
-use App\Account\Application\Auth\Password\Reset\ResetPasswordHandler;
+use App\Account\Application\Login\LoginCommand;
+use App\Account\Application\Login\LoginHandler;
+use App\Account\Application\Register\RegisterCommand;
+use App\Account\Application\Register\RegisterProcess;
+use App\Account\Application\Logout\LogoutCommand;
+use App\Account\Application\Logout\LogoutHandler;
+use App\Account\Application\Token\Issue\IssueTokenCommand;
+use App\Account\Application\Token\Issue\IssueTokenHandler;
+use App\Account\Application\Token\Refresh\RefreshTokenCommand;
+use App\Account\Application\Token\Refresh\RefreshTokenHandler;
+use App\Account\Application\Password\Forgot\ForgotPasswordCommand;
+use App\Account\Application\Password\Forgot\ForgotPasswordHandler;
+use App\Account\Application\Password\Reset\ResetPasswordCommand;
+use App\Account\Application\Password\Reset\ResetPasswordHandler;
 use App\Account\Application\Profile\Update\UpdateProfileCommand;
 use App\Account\Application\Profile\Update\UpdateProfileHandler;
 use App\Account\Application\Profile\Delete\DeleteProfileCommand;
@@ -37,7 +37,7 @@ final class CommandDispatcher extends ServiceProvider
         IssueTokenCommand::class => IssueTokenHandler::class,
         RefreshTokenCommand::class => RefreshTokenHandler::class,
         ForgotPasswordCommand::class => ForgotPasswordHandler::class,
-        ResetPasswordCommand::class => ResetPasswordHandler::class,
+        ResetPasswordCommand::class => ResetPasswordHandler::class
     ];
     
     /**
@@ -47,7 +47,7 @@ final class CommandDispatcher extends ServiceProvider
      */
     private array $profile = [
         UpdateProfileCommand::class => UpdateProfileHandler::class,
-        DeleteProfileCommand::class => DeleteProfileHandler::class,
+        DeleteProfileCommand::class => DeleteProfileHandler::class
     ];
 
     /**

@@ -5,8 +5,10 @@ namespace App\Account\Application\Profile\Update;
 use App\Shared\Application\Handler;
 use App\Shared\Domain\Email\Email;
 use App\Account\Domain\Repository\UserRepositoryInterface;
+use App\Account\Domain\Avatar;
 use App\Account\Domain\Password\Password;
-use Illuminate\Support\Facades\{Auth, Log};
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 final class UpdateProfileHandler extends Handler
 {
@@ -24,6 +26,9 @@ final class UpdateProfileHandler extends Handler
      * 
      * @param UpdateProfileCommand $command
      * @return bool
+     * 
+     * @throws \RuntimeException
+     * @throws \Throwable
      */
     public function handle(UpdateProfileCommand $command): bool
     {
@@ -45,50 +50,48 @@ final class UpdateProfileHandler extends Handler
                 );
             }
 
-            $email = Email::fromString(value: $command->email);
             $password = Password::fromPlain(value: $command->password);
+            $email = Email::fromString(value: $command->email);
 
-            $hasChanges = false;
+            $user->changeName(name: $command->name);
+            $user->changeEmail(email: $email);
+            $user->changePassword(password: $password);
 
-            if ($user->getName() !== $command->name) {
-                $user->changeName(name: $command->name);
-                $hasChanges = true;
-            }
+            if ($command->avatar !== null && $command->avatar->isValid()) {
+                $avatar = $command->avatar->store(
+                    path: 'avatars', options: 'public'
+                );
 
-            if (!$user->getEmail()->equals(other: $email)) {
-                $user->changeEmail(email: $email);
-                $hasChanges = true;
-            }
-
-            if (!$user->getPassword()->equals(other: $password)) {
-                $user->changePassword(password: $password);
-                $hasChanges = true;
-            }
-
-            if (!$hasChanges) {
-                return false;
+                $user->changeAvatar(
+                    avatar: Avatar::fromString(value: $avatar)
+                );
             }
 
             $this->repository->save(user: $user);
 
-            return true;
+            return $user !== null;
         }
 
-        catch (\Throwable $e) {
-            $message = trim(string: <<<MSG
-                Update profile error: {$e->getMessage()}
-                in {$e->getFile()}:{$e->getLine()}
-            MSG);
-
-            Log::error(message: $message, context: [
-                'exception' => $e,
-            ]);
+        catch (\Exception $e) {
+            Log::error(
+                message: "Failed to update profile: {$e->getMessage()}",
+                context: ['exception' => $e]
+            );
 
             throw new \RuntimeException(
                 message: 'Failed to update profile due to error',
                 code: (int) $e->getCode(),
                 previous: $e
             );
+        }
+
+        catch (\Throwable $e) {
+            Log::critical(
+                message: 'Unexpected error: ' . $e->getMessage(),
+                context: ['exception' => $e]
+            );
+            
+            throw $e;
         }
     }
 }

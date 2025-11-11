@@ -6,9 +6,9 @@ services:
     ports:
       - "127.0.0.1:8080:8080"
     environment:
-      SWAGGER_JSON: /var/html/www/src/public/openapi.yml
+      SWAGGER_JSON: /srv/ddd/src/public/openapi.yml
     volumes:
-      - ./docker/swagger/openapi.yml:/var/html/www/src/public/openapi.yml:ro
+      - ./docker/swagger/openapi.yml:/srv/ddd/src/public/openapi.yml:ro
     networks:
       - app-network
 

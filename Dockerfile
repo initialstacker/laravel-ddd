@@ -52,10 +52,10 @@ RUN curl -sS https://getcomposer.org/installer -o composer-setup.php \
     && rm composer-setup.php
 
 # Set working directory to backend source code folder
-WORKDIR /var/www/html/src
+WORKDIR /srv/ddd/src
 
 # Copy backend source code with correct ownership
-COPY --chown=anonim:anonim ./src /var/www/html/src
+COPY --chown=anonim:anonim ./src /srv/ddd/src
 
 # Install PHP dependencies with optimized autoloader for production
 # RUN composer install --prefer-dist --optimize-autoloader

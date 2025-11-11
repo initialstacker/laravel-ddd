@@ -20,6 +20,7 @@ final class UpdateProfileRequest extends Request
         $auth = $this->user();
 
         return [
+            'avatar' => ['bail', 'nullable', 'file', 'image', 'mimes:jpeg,jpg,png,gif', 'max:2048'],
             'name' => ['bail', 'required', 'string', 'min:2', 'max:46'],
             'email' => [
                 'bail', 'required', 'email:rfc,strict,spoof,dns', 'max:254', 'unique:users,email,' . $auth->user->id

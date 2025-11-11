@@ -22,4 +22,17 @@ final class LoginRequest extends Request
             'remember_me' => ['bail', 'sometimes', 'boolean'],
         ];
     }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $this->merge(input: [
+            'remember_me' => $this->boolean(
+                key: 'remember_me',
+                default: false
+            ),
+        ]);
+    }
 }
